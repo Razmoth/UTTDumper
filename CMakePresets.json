@@ -1,0 +1,216 @@
+{
+  "version": 6,
+  "configurePresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "generator": "Ninja Multi-Config",
+      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "installDir": "${sourceDir}/out/install/${presetName}",
+      "cacheVariables": {
+        "CMAKE_CONFIGURATION_TYPES": "Debug;Release"
+      }
+    },
+    {
+      "name": "windows-base",
+      "inherits": "base",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "cl.exe",
+        "CMAKE_CXX_COMPILER": "cl.exe"
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      }
+    },
+    {
+      "name": "linux-base",
+      "inherits": "base",
+      "hidden": true,
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioRemoteSettings/CMake/1.0": {
+          "sourceDir": "$env{HOME}/.vs/$ms{projectDirName}"
+        }
+      }
+    },
+    {
+      "name": "android-base",
+      "inherits": "linux-base",
+      "hidden": true,
+      "toolchainFile": "$env{HOME}/Android/Ndk/android-ndk-r27/build/cmake/android.toolchain.cmake"
+    },
+    {
+      "name": "win-x86",
+      "inherits": "windows-base",
+      "displayName": "Windows x86",
+      "architecture": {
+        "value": "x86",
+        "strategy": "external"
+      }
+    },
+    {
+      "name": "win-x64",
+      "inherits": "windows-base",
+      "displayName": "Windows x64",
+      "architecture": {
+        "value": "x64",
+        "strategy": "external"
+      }
+    },
+    {
+      "name": "osx-x86",
+      "inherits": "linux-base",
+      "displayName": "Linux x86",
+      "architecture": {
+        "value": "x86",
+        "strategy": "external"
+      }
+    },
+    {
+      "name": "osx-x64",
+      "inherits": "linux-base",
+      "displayName": "Linux x64",
+      "architecture": {
+        "value": "x64",
+        "strategy": "external"
+      }
+    },
+    {
+      "name": "android-arm64-v8a",
+      "inherits": "android-base",
+      "displayName": "Android arm64-v8a",
+      "cacheVariables": {
+        "ANDROID_ABI": "arm64-v8a"
+      }
+    },
+    {
+      "name": "android-armeabi-v7a",
+      "inherits": "android-base",
+      "displayName": "Android armeabi-v7a",
+      "cacheVariables": {
+        "ANDROID_ABI": "armeabi-v7a"
+      }
+    },
+    {
+      "name": "android-x86",
+      "inherits": "android-base",
+      "displayName": "Android x86",
+      "cacheVariables": {
+        "ANDROID_ABI": "x86"
+      }
+    },
+    {
+      "name": "android-x86_64",
+      "inherits": "android-base",
+      "displayName": "Android x86_64",
+      "cacheVariables": {
+        "ANDROID_ABI": "x86_64"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "win-x86-debug",
+      "configurePreset": "win-x86",
+      "configuration": "Debug",
+      "displayName": "Debug"
+    },
+    {
+      "name": "win-x86-release",
+      "configurePreset": "win-x86",
+      "configuration": "Release",
+      "displayName": "Release"
+    },
+    {
+      "name": "win-x64-debug",
+      "configurePreset": "win-x64",
+      "configuration": "Debug",
+      "displayName": "Debug"
+    },
+    {
+      "name": "win-x64-release",
+      "configurePreset": "win-x64",
+      "configuration": "Release",
+      "displayName": "Release"
+    },
+    {
+      "name": "osx-x86-debug",
+      "configurePreset": "osx-x86",
+      "configuration": "Debug",
+      "displayName": "Debug"
+    },
+    {
+      "name": "osx-x86-release",
+      "configurePreset": "osx-x86",
+      "configuration": "Release",
+      "displayName": "Release"
+    },
+    {
+      "name": "osx-x64-debug",
+      "configurePreset": "osx-x64",
+      "configuration": "Debug",
+      "displayName": "Debug"
+    },
+    {
+      "name": "osx-x64-release",
+      "configurePreset": "osx-x64",
+      "configuration": "Release",
+      "displayName": "Release"
+    },
+    {
+      "name": "android-arm64-v8a-debug",
+      "configurePreset": "android-arm64-v8a",
+      "configuration": "Debug",
+      "displayName": "Debug"
+    },
+    {
+      "name": "android-arm64-v8a-release",
+      "configurePreset": "android-arm64-v8a",
+      "configuration": "Release",
+      "displayName": "Release"
+    },
+    {
+      "name": "android-armeabi-v7a-debug",
+      "configurePreset": "android-armeabi-v7a",
+      "configuration": "Debug",
+      "displayName": "Debug"
+    },
+    {
+      "name": "android-armeabi-v7a-release",
+      "configurePreset": "android-armeabi-v7a",
+      "configuration": "Release",
+      "displayName": "Release"
+    },
+    {
+      "name": "android-x86-debug",
+      "configurePreset": "android-x86",
+      "configuration": "Debug",
+      "displayName": "Debug"
+    },
+    {
+      "name": "android-x86-release",
+      "configurePreset": "android-x86",
+      "configuration": "Release",
+      "displayName": "Release"
+    },
+    {
+      "name": "android-x86_64-debug",
+      "configurePreset": "android-x86_64",
+      "configuration": "Debug",
+      "displayName": "Debug"
+    },
+    {
+      "name": "android-x86_64-release",
+      "configurePreset": "android-x86_64",
+      "configuration": "Release",
+      "displayName": "Release"
+    }
+  ]
+}
