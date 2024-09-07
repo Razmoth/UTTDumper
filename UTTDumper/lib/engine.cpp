@@ -23,7 +23,7 @@ static void* get_module_base(const char* moduleName)
 	fp = fopen("/proc/self/maps", "r");
 	if (fp != NULL) {
 		while (fgets(line, sizeof(line), fp)) {
-			if (strstr(line, moduleName)) {
+			if (strstr(line, moduleName) && strstr(line, "r-xp")) {
 				pch = strtok(line, "-");
 				addr = strtoul(pch, NULL, 16);
 				if (addr == 0x8000)
@@ -31,6 +31,7 @@ static void* get_module_base(const char* moduleName)
 				break;
 			}
 		}
+
 		fclose(fp);
 	}
 	return (void*)addr;

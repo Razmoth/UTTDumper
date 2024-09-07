@@ -31,7 +31,7 @@ set(SOURCE_FILES
 
 if (WIN32)
 	set(SOURCE_FILES ${SOURCE_FILES} "${SOURCE_DIR}/windll.cpp")
-elseif (ANDROID)
+else()
 	set(SOURCE_FILES ${SOURCE_FILES} "${SOURCE_DIR}/libso.cpp")
 endif()
 

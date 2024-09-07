@@ -44,7 +44,10 @@
       "name": "android-base",
       "inherits": "linux-base",
       "hidden": true,
-      "toolchainFile": "$env{HOME}/Android/Ndk/android-ndk-r27/build/cmake/android.toolchain.cmake"
+      "cacheVariables": {
+        "ANDROID_PLATFORM": "android-21"
+      },
+      "toolchainFile": "$env{ANDROID_NDK_HOME}/build/cmake/android.toolchain.cmake"
     },
     {
       "name": "win-x86",
@@ -65,7 +68,7 @@
       }
     },
     {
-      "name": "osx-x86",
+      "name": "linux-x86",
       "inherits": "linux-base",
       "displayName": "Linux x86",
       "architecture": {
@@ -74,7 +77,7 @@
       }
     },
     {
-      "name": "osx-x64",
+      "name": "linux-x64",
       "inherits": "linux-base",
       "displayName": "Linux x64",
       "architecture": {
@@ -141,26 +144,26 @@
       "displayName": "Release"
     },
     {
-      "name": "osx-x86-debug",
-      "configurePreset": "osx-x86",
+      "name": "linux-x86-debug",
+      "configurePreset": "linux-x86",
       "configuration": "Debug",
       "displayName": "Debug"
     },
     {
-      "name": "osx-x86-release",
-      "configurePreset": "osx-x86",
+      "name": "linux-x86-release",
+      "configurePreset": "linux-x86",
       "configuration": "Release",
       "displayName": "Release"
     },
     {
-      "name": "osx-x64-debug",
-      "configurePreset": "osx-x64",
+      "name": "linux-x64-debug",
+      "configurePreset": "linux-x64",
       "configuration": "Debug",
       "displayName": "Debug"
     },
     {
-      "name": "osx-x64-release",
-      "configurePreset": "osx-x64",
+      "name": "linux-x64-release",
+      "configurePreset": "linux-x64",
       "configuration": "Release",
       "displayName": "Release"
     },
