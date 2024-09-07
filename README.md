@@ -21,6 +21,7 @@ transfer = 265 # TransferInstruction flags (check transfer.h for possible values
 json_dump = true # Enable json output (classes.json/info.json).
 text_dump = true #	Enable text files output (RTTI.dump/structs.dump).
 binary_dump = true # Enable binary files output (strings.dat/structs.dat).
+exclude = [1, 2, 3, 4] # List of classes to exclude while dumping.
 version = 0xF07E30 # GetUnityBuildFullVersion RVA or string (ex '2017.3.4f1').
 common_strings_begin = 0x167E970 # Unity::CommonString::BufferBegin RVA.
 common_strings_end = 0x167E978 # Unity::CommonString::BufferEnd RVA.
