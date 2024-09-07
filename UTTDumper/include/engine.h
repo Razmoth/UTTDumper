@@ -18,6 +18,7 @@ namespace UTTD {
 		bool jsonDump = true;
 		bool textDump = true;
 		bool binaryDump = true;
+		std::vector<uint32_t> exclude;
 		uintptr_t version = 0;
 		uintptr_t commonStringsBegin = 0;
 		uintptr_t commonStringsEnd = 0;

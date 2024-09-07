@@ -81,6 +81,16 @@ namespace UTTD {
 #endif
 			}
 
+			
+			std::vector<uint32_t> exclude = {};
+			toml::array* arr = gameNode["exclude"].as_array();
+			if (arr->size() > 0 && arr->is_homogeneous<int64_t>()) {
+				exclude.reserve(arr->size());
+				for (const toml::node& i : *arr) {
+					exclude.emplace_back(i.value_or<uint32_t>(0));
+				}
+			}
+
 			uint32_t delay = gameNode["delay"].value_or(0);
 			UTTD::Unity::TransferInstruction transfer = gameNode["transfer"].value_or(UTTD::Unity::TransferInstruction::None);
 			bool jsonDump = gameNode["json_dump"].value<bool>().value();
@@ -115,6 +125,7 @@ namespace UTTD {
 				jsonDump,
 				textDump,
 				binaryDump,
+				exclude,
 				version,
 				commonStringsBegin,
 				commonStringsEnd,

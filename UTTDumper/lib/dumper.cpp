@@ -202,6 +202,11 @@ namespace UTTD
 			std::cout << std::format("[{0}] Base: {1}::{2}, {3}, {4}", typeCount, iter->nameSpace(), iter->name(), iter->module(), iter->typeID()) << std::endl;
 
 			if (iter->typeID() == 116) continue; // MonoManager
+			
+			if (contains(m_engine.options().exclude, iter->typeID())) {
+				std::cout << std::format("[{0}] Type {1} is excluded, skipping...", typeCount, iter->name()) << std::endl;
+				continue;
+			}
 
 			std::cout << std::format("[{0}] Producing native object...", typeCount) << std::endl;
 			std::shared_ptr<Unity::INativeObject> object = m_engine.nativeObject().produce(*iter, 0, Unity::CreationMode::Default);

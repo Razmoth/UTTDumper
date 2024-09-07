@@ -44,6 +44,9 @@ namespace UTTD {
 		return idx;
 	}
 
+	template<typename T>
+	bool contains(const std::vector<T>& vec, T val) { return find(vec.begin(), vec.end(), val) != vec.end(); }
+
 	template <typename T>
 	static std::ostream& operator<=(std::ostream& os, T const& value) { return os.write(reinterpret_cast<const char*>(&value), sizeof(T)); }
 

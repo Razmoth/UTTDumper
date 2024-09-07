@@ -1,6 +1,7 @@
 #include <info.h>
 #include <rtti.h>
 #include <utils.h>
+#include <iostream>
 
 namespace UTTD {
     Info::Info(const Engine& engine, 
@@ -85,6 +86,11 @@ namespace UTTD {
             }
 
             if (iter->typeID() == 116) continue; // MonoManager
+
+            if (contains(engine.options().exclude, iter->typeID())) {
+                std::cout << std::format("Type {0} is excluded, skipping...", iter->name()) << std::endl;
+                continue;
+            }
 
             std::shared_ptr<Unity::INativeObject> object = engine.nativeObject().produce(*iter, 0, Unity::CreationMode::Default);
 
