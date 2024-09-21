@@ -78,7 +78,7 @@ namespace UTTD::Unity {
 
 		std::string_view string(uint32_t offset) const {
 			if (offset > INT_MAX) {
-				return std::string_view{ (char*)(m_commonString.begin + (offset & INT_MAX)) };
+				return m_commonString.string(offset & INT_MAX);
 			};
 
 			return std::string_view{ (char*)(stringBuffer().data + offset) };

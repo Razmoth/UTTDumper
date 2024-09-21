@@ -26,6 +26,7 @@ set(SOURCE_FILES
 	"${SOURCE_DIR}/engine.cpp"
 	"${SOURCE_DIR}/version.cpp"
 	"${SOURCE_DIR}/typetree.cpp"
+	"${SOURCE_DIR}/common_string.cpp"
 	"${SOURCE_DIR}/native_object.cpp"
 )
 

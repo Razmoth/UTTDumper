@@ -1,6 +1,7 @@
 #include <info.h>
 #include <rtti.h>
 #include <utils.h>
+#include <utility>
 #include <iostream>
 
 namespace UTTD {
@@ -53,12 +54,9 @@ namespace UTTD {
     std::vector<InfoString> InfoString::s_makeList(const Unity::CommonString& commonString) {
         std::vector<InfoString> strings;
 
-        for (const char* i = commonString.begin; i < commonString.end;) {
-            size_t size = std::strlen(i);
-            if (size == 0) break;
-            InfoString string{ i - commonString.begin, std::string_view(i, size) };
+        for (const std::pair<const size_t, std::string_view>& i : commonString.strings()) {
+            InfoString string{ i.first, i.second };
             strings.emplace_back(string);
-            i += size + 1;
         }
 
         return strings;

@@ -8,7 +8,7 @@
 
 namespace UTTD {
 	struct InfoString {
-		int64_t index;
+		size_t index;
 		std::string_view string;
 
 		static std::vector<InfoString> s_makeList(const Unity::CommonString& commonString);

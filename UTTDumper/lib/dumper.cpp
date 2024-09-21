@@ -2,11 +2,12 @@
 #include <transfer.h>
 #include <version.h>
 #include <info.h>
+#include <utils.h>
+#include <utility>
 #include <iostream>
 #include <format>
 #include <fstream>
 #include <filesystem>
-#include <utils.h>
 #include <nlohmann/json.hpp>
 
 namespace UTTD
@@ -44,7 +45,8 @@ namespace UTTD
 
 		std::cout << "Writing common string buffer..." << std::endl;
 
-		os.write(commonString.begin, commonString.end - commonString.begin - 1);
+		std::pair<char*, char*> range = commonString.range();
+		os.write(range.first, range.second - range.first - 1);
 	}
 
 	void Dumper::dumpInfoJson() const

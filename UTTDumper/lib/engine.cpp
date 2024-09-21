@@ -96,9 +96,7 @@ namespace UTTD {
 			bool jsonDump = gameNode["json_dump"].value<bool>().value();
 			bool textDump = gameNode["text_dump"].value_or(false);
 			bool binaryDump = gameNode["binary_dump"].value_or(false);
-			bool commonStringsDirect = gameNode["common_strings_direct"].value_or<bool>(false);
-			uintptr_t commonStringsBegin = gameNode["common_strings_begin"].value_or<uintptr_t>(0);
-			uintptr_t commonStringsEnd = gameNode["common_strings_end"].value_or<uintptr_t>(0);
+			uintptr_t commonStrings = gameNode["common_strings"].value_or<uintptr_t>(0);
 			uintptr_t rtti = gameNode["rtti"].value_or<uintptr_t>(0);
 			uintptr_t typeTree = gameNode["type_tree"].value_or<uintptr_t>(0);
 			uintptr_t typeTreeCtor = gameNode["type_tree_ctor"].value_or<uintptr_t>(0);
@@ -128,9 +126,7 @@ namespace UTTD {
 				binaryDump,
 				exclude,
 				version,
-				commonStringsDirect,
-				commonStringsBegin,
-				commonStringsEnd,
+				commonStrings,
 				rtti,
 				typeTreeCtor,
 				typeTree,
@@ -156,10 +152,9 @@ namespace UTTD {
 				m_version = std::make_unique<Unity::Version>(getUnityVersion());
 			}
 
-			char* begin = reinterpret_cast<char*>(base + m_options.commonStringsBegin);
-			char* end = reinterpret_cast<char*>(base + m_options.commonStringsEnd);
+			char* commonStrings = reinterpret_cast<char*>(base + m_options.commonStrings);
 
-			m_commonString = std::make_unique<Unity::CommonString>(begin, end, m_options.commonStringsDirect);
+			m_commonString = std::make_unique<Unity::CommonString>(commonStrings);
 
 			void* rtti = reinterpret_cast<void*>(base + m_options.rtti);
 
