@@ -1,5 +1,6 @@
 #include <common_string.h>
 #include <iostream>
+#include <cstring>
 #include <format>
 
 namespace UTTD::Unity {
