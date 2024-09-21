@@ -20,6 +20,7 @@ namespace UTTD {
 		bool binaryDump = true;
 		std::vector<uint32_t> exclude;
 		uintptr_t version = 0;
+		bool commonStringsDirect = false;
 		uintptr_t commonStringsBegin = 0;
 		uintptr_t commonStringsEnd = 0;
 		uintptr_t rtti = 0;

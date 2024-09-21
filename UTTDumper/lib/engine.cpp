@@ -96,6 +96,7 @@ namespace UTTD {
 			bool jsonDump = gameNode["json_dump"].value<bool>().value();
 			bool textDump = gameNode["text_dump"].value_or(false);
 			bool binaryDump = gameNode["binary_dump"].value_or(false);
+			bool commonStringsDirect = gameNode["common_strings_direct"].value_or<bool>(false);
 			uintptr_t commonStringsBegin = gameNode["common_strings_begin"].value_or<uintptr_t>(0);
 			uintptr_t commonStringsEnd = gameNode["common_strings_end"].value_or<uintptr_t>(0);
 			uintptr_t rtti = gameNode["rtti"].value_or<uintptr_t>(0);
@@ -127,6 +128,7 @@ namespace UTTD {
 				binaryDump,
 				exclude,
 				version,
+				commonStringsDirect,
 				commonStringsBegin,
 				commonStringsEnd,
 				rtti,
@@ -157,7 +159,7 @@ namespace UTTD {
 			char* begin = reinterpret_cast<char*>(base + m_options.commonStringsBegin);
 			char* end = reinterpret_cast<char*>(base + m_options.commonStringsEnd);
 
-			m_commonString = std::make_unique<Unity::CommonString>(begin, end);
+			m_commonString = std::make_unique<Unity::CommonString>(begin, end, m_options.commonStringsDirect);
 
 			void* rtti = reinterpret_cast<void*>(base + m_options.rtti);
 
