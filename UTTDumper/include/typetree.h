@@ -43,7 +43,7 @@ namespace UTTD::Unity {
 	template <typename T>
 	struct DynamicArray {
 		T* data;
-		int32_t label; //TODO: template
+		MemLabelId label; //TODO: template
 		size_t size;
 		size_t capacity;
 	};
@@ -65,7 +65,7 @@ namespace UTTD::Unity {
 
 	class ITypeTree {
 	protected:
-		const int32_t MemLabel = 0x53;
+		const MemLabelId MemLabel = MemLabelId{ 0x53 };
 	public:
 		ITypeTree(const CommonString& commonString) : m_commonString(commonString) { }
 

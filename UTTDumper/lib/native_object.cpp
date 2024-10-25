@@ -16,7 +16,7 @@ namespace UTTD::Unity {
 		}
 
 		int32_t instanceID() const { return m_info->instanceID; }
-		uint32_t memLabel() const { return range<0, 11>(m_info->bits).to_ulong(); }
+		MemLabelId memLabel() const { return MemLabelId{ (int32_t)range<0, 11>(m_info->bits).to_ulong() }; }
 		uint8_t temporary() const { return (unsigned char)range<11, 12>(m_info->bits).to_ulong(); }
 		Hide hide() const { return static_cast<Hide>(range<12, 18>(m_info->bits).to_ulong()); }
 		bool isPersistent() const { return range<18, 19>(m_info->bits).test(0); }
@@ -43,7 +43,7 @@ namespace UTTD::Unity {
 			Produce5_5* produce = (Produce5_5*)m_ptr;
 			ptr = produce(rtti.ptr(), instanceID, MemLabel, creationMode);
 		}
-		else if (m_version < s_version<2023, 1, 0, Alpha, 2>) {
+		else if (m_version < s_version<2023, 1, 0, 'a', 2>) {
 			Produce2017_2* produce = (Produce2017_2*)m_ptr;
 			ptr = produce(rtti.ptr(), rtti.ptr(), instanceID, MemLabel, creationMode);
 		}

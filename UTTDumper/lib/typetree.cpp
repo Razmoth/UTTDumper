@@ -84,7 +84,7 @@ namespace UTTD::Unity {
 			DynamicArray<uint32_t> offsets;
 			TransferInstruction flags;
 			int32_t refCount;
-			int32_t memLabel;
+			MemLabelId memLabel;
 		};
 
 		struct TypeTree {
@@ -93,7 +93,7 @@ namespace UTTD::Unity {
 			bool poolOwned;
 		};
 
-		typedef void TypeConstructor(TypeTree_Unity2022_2::TypeTree* typeTree, int32_t label);
+		typedef void TypeConstructor(TypeTree_Unity2022_2::TypeTree* typeTree, MemLabelId label);
 	public:
 		TypeTree_Unity2022_2(void* ptr, const CommonString& commonString) : ITypeTree(commonString) {
 			m_tree = TypeTree{};
@@ -124,7 +124,7 @@ namespace UTTD::Unity {
 			DynamicArray<uint32_t> offsets;
 			TransferInstruction flags;
 			int32_t refCount;
-			int32_t memLabel;
+			MemLabelId memLabel;
 		};
 
 		struct TypeTree {
@@ -133,7 +133,7 @@ namespace UTTD::Unity {
 			bool poolOwned;
 		};
 
-		typedef void TypeConstructor(TypeTree_Unity2019_3::TypeTree* typeTree, int32_t label);
+		typedef void TypeConstructor(TypeTree_Unity2019_3::TypeTree* typeTree, MemLabelId label);
 	public:
 		TypeTree_Unity2019_3(void* ptr, const CommonString& commonString) : ITypeTree(commonString) {
 			TypeConstructor* constructor = (TypeConstructor*)ptr;
@@ -167,7 +167,7 @@ namespace UTTD::Unity {
 			DynamicArray<uint32_t> offsets;
 			TransferInstruction flags;
 			int32_t refCount;
-			int32_t memLabel;
+			MemLabelId memLabel;
 		};
 
 		struct TypeTree {
@@ -175,7 +175,7 @@ namespace UTTD::Unity {
 			TypeTreeShareableData privateData;
 		};
 
-		typedef void TypeConstructor(TypeTree_Unity2019_1::TypeTree* typeTree, int32_t label, uint8_t flag);
+		typedef void TypeConstructor(TypeTree_Unity2019_1::TypeTree* typeTree, MemLabelId label, uint8_t flag);
 	public:
 		TypeTree_Unity2019_1(void* ptr, const CommonString& commonString) : ITypeTree(commonString) {
 			TypeConstructor* constructor = (TypeConstructor*)ptr;
@@ -209,7 +209,7 @@ namespace UTTD::Unity {
 			DynamicArray<uint32_t> offsets;
 		};
 
-		typedef void TypeConstructor(TypeTree_Unity5_3::TypeTree* typeTree, int32_t label);
+		typedef void TypeConstructor(TypeTree_Unity5_3::TypeTree* typeTree, MemLabelId label);
 	public:
 		TypeTree_Unity5_3(void* ptr, const CommonString& commonString) : ITypeTree(commonString) {
 			TypeConstructor* constructor = (TypeConstructor*)ptr;
@@ -287,7 +287,7 @@ namespace UTTD::Unity {
 		else if (version < s_version<2022, 2>) {
 			return std::make_shared<TypeTree_Unity2019_3>(ptr, commonString);
 		}
-		else if (version < s_version<2023, 1, 0, Alpha, 2>) {
+		else if (version < s_version<2023, 1, 0, 'a', 2>) {
 			return std::make_shared<TypeTree_Unity2022_2>(ptr, commonString);
 		}
 		else {

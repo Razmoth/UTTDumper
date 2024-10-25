@@ -37,7 +37,7 @@ namespace UTTD::Unity {
 		}
 	public:
 		virtual int32_t instanceID() const = 0;
-		virtual uint32_t memLabel() const = 0;
+		virtual MemLabelId memLabel() const = 0;
 		virtual uint8_t temporary() const = 0;
 		virtual Hide hide() const = 0;
 		virtual bool isPersistent() const = 0;
@@ -47,11 +47,11 @@ namespace UTTD::Unity {
 
 	class NativeObject {
 	protected:
-		const int32_t MemLabel = 0x38;
+		const MemLabelId MemLabel = MemLabelId{ 0x38 };
 
-		typedef void* Produce3_5(uint32_t typeID, int32_t instanceID, int32_t memLabel, CreationMode creationMode);
-		typedef void* Produce5_5(void* typePtr, int32_t instanceID, int32_t memLabel, CreationMode creationMode);
-		typedef void* Produce2017_2(void* typeInPtr, const void* typeOutPtr, int32_t instanceID, int32_t memLabel, CreationMode creationMode);
+		typedef void* Produce3_5(uint32_t typeID, int32_t instanceID, MemLabelId memLabel, CreationMode creationMode);
+		typedef void* Produce5_5(void* typePtr, int32_t instanceID, MemLabelId memLabel, CreationMode creationMode);
+		typedef void* Produce2017_2(void* typeInPtr, const void* typeOutPtr, int32_t instanceID, MemLabelId memLabel, CreationMode creationMode);
 	public:
 		NativeObject(void* ptr, const Version& version) :
 			m_ptr(ptr),

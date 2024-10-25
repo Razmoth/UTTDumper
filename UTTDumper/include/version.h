@@ -3,20 +3,19 @@
 #include <string>
 
 namespace UTTD::Unity {
-	enum VersionType { Alpha, Beta, Final, Patch, Experimental };
-
-	static constexpr char TypeToChar(VersionType type);
-	static constexpr VersionType CharToType(char c);
+	struct MemLabelId {
+		int32_t identifier;
+	};
 
 	struct Version {
 		int major;
 		int minor;
 		int patch;
-		VersionType type;
+		char type;
 		int build;
 
 		Version(const char* string);
-		constexpr Version(int32_t major, int32_t minor, int32_t patch, VersionType type, int32_t build) :
+		constexpr Version(int32_t major, int32_t minor, int32_t patch, char type, int32_t build) :
 			major(major),
 			minor(minor),
 			patch(patch),
@@ -47,6 +46,6 @@ namespace UTTD::Unity {
 		std::string str() const;
 	};
 
-	template <int32_t major = 0, int32_t minor = 0, int32_t patch = 0, VersionType type = Final, int32_t build = 0>
+	template <int32_t major = 0, int32_t minor = 0, int32_t patch = 0, char type = 'f', int32_t build = 0>
 	static constexpr Version s_version = Version{ major, minor, patch, type, build };
 }
