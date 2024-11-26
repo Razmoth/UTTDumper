@@ -1,5 +1,7 @@
 # UTTDumper
 A tool to help with Unity type trees
+
+Check the tutorial [here](https://gist.github.com/Modder4869/55df4f3f9fa585a0057b9765e7fe4c4f) (Thanks to Modder4869 for the tutorial)
 _____________________________________________________________________________________________________________________________
 How to use:
 - Update `[engine]`.

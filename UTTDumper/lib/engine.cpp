@@ -13,31 +13,40 @@
 
 #else
 
-static void* get_module_base(const char* moduleName)
+#include <string>
+
+static uintptr_t get_module_base(const char* moduleName)
 {
-	FILE* fp;
-	long addr = 0;
-	char* pch;
-	char line[1024];
+	std::ifstream maps("/proc/self/maps");
 
-	fp = fopen("/proc/self/maps", "r");
-	if (fp != NULL) {
-		while (fgets(line, sizeof(line), fp)) {
-			if (strstr(line, moduleName) && strstr(line, "r-xp")) {
-				pch = strtok(line, "-");
-				addr = strtoul(pch, NULL, 16);
-				if (addr == 0x8000)
-					addr = 0;
-				break;
-			}
+	char temp;
+	ino_t inode;
+	int32_t dev_major, dev_minor;
+	uintptr_t begin, end, offset;
+	std::string line, path, perms;
+	while (std::getline(maps, line)) {
+		std::istringstream ss(line);
+
+		ss >> std::hex;
+		ss >> begin >> temp >> end >> perms >> offset >> dev_major >> temp >> dev_minor;
+
+		ss >> std::dec;
+		ss >> inode;
+
+		ss >> std::ws;
+		if (std::getline(ss, path)
+			&& path.find(moduleName) != path.npos
+			&& perms.find('r') != perms.npos
+			&& perms.find('x') != perms.npos) {
+
+			break;
 		}
-
-		fclose(fp);
 	}
-	return (void*)addr;
+
+	return begin;
 }
 
-#define GetModuleBase(moduleName) reinterpret_cast<uintptr_t>(get_module_base(moduleName))
+#define GetModuleBase(moduleName) get_module_base(moduleName)
 
 #endif
 
@@ -81,7 +90,7 @@ namespace UTTD {
 #endif
 			}
 
-			
+
 			std::vector<uint32_t> exclude = {};
 			toml::array* arr = gameNode["exclude"].as_array();
 			if (arr->size() > 0 && arr->is_homogeneous<int64_t>()) {
