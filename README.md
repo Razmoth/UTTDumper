@@ -2,13 +2,11 @@
 A tool to help with Unity type trees
 
 Check the tutorial [here](https://gist.github.com/Modder4869/55df4f3f9fa585a0057b9765e7fe4c4f) (Thanks to Modder4869 for the tutorial)
-_____________________________________________________________________________________________________________________________
 # How to use:
 - Update `[engine]`.
 - Define new key `[<name>]`.
 - Update values of fields.
 - Update name in `[engine]`.
-_____________________________________________________________________________________________________________________________
 # Values:
 - delay: seconds to wait before dumping.
 - binary: name of binary to dump from.
@@ -24,7 +22,6 @@ ________________________________________________________________________________
 - type_tree_ctor: TypeTree::TypeTree RVA.
 - type_tree: TypeTreeCache::GetTypeTree or GenerateTypeTree RVA (TypeTreeCache::GetTypeTree: version > 2019.x.x else GenerateTypeTree).
 - produce: Object::Produce RVA.
-_____________________________________________________________________________________________________________________________
 # Example:
 ```
 [engine]
@@ -46,15 +43,13 @@ type_tree_ctor = 0x90FB90
 type_tree = 0x9221E0
 produce = 0x58E370
 ```
-_____________________________________________________________________________________________________________________________
-Special Thank to:
+# Special Thank to:
 - [DaZombieKiller](https://github.com/DaZombieKiller)
 - [ds5678](https://github.com/ds5678)
 - [Khang06](https://github.com/Khang06)
 - [Modder4869](https://github.com/Modder4869)
 - [Ladilib](https://github.com/ladilib/)
 - [Dimbreath](https://github.com/Dimbreath)
-_____________________________________________________________________________________________________________________________
 
 If you find `UTTDumper` useful, you can leave a star 😄
 Thank you, looking forward for your feedback
