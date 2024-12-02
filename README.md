@@ -8,20 +8,20 @@ Check the tutorial [here](https://gist.github.com/Modder4869/55df4f3f9fa585a0057
 - Update values of fields.
 - Update name in `[engine]`.
 # Values:
-- delay: seconds to wait before dumping.
-- binary: name of binary to dump from.
-- output_dir: output folder (defaults to "cwd/<name>|data/data/<pkg_name>/<name>" if empty).
-- transfer: TransferInstruction flags (check transfer.h for possible values).
-- json_dump: Enable json output (classes.json/info.json).
-- text_dump: Enable text files output (RTTI.dump/structs.dump).
-- binary_dump: Enable binary files output (strings.dat/structs.dat).
-- exclude: List of types to exclude while dumping.
-- version: GetUnityBuildFullVersion RVA or string (ex '2017.3.4f1').
-- common_strings: Unity::CommonString begin RVA.
-- rtti: RTTI::ms_runtimeTypes RVA.
-- type_tree_ctor: TypeTree::TypeTree RVA.
-- type_tree: TypeTreeCache::GetTypeTree or GenerateTypeTree RVA (TypeTreeCache::GetTypeTree: version > 2019.x.x else GenerateTypeTree).
-- produce: Object::Produce RVA.
+- `delay`: seconds to wait before dumping.
+- `binary`: name of binary to dump from.
+- `output_dir`: output folder (defaults to "cwd/<name>|data/data/<pkg_name>/<name>" if empty).
+- `transfer`: `TransferInstruction` flags (check transfer.h for possible values).
+- `json_dump`: Enable json output (classes.json/info.json).
+- `text_dump`: Enable text files output (RTTI.dump/structs.dump).
+- `binary_dump`: Enable binary files output (strings.dat/structs.dat).
+- `exclude`: List of types to exclude while dumping.
+- `version`: `GetUnityBuildFullVersion` RVA or string (ex '2017.3.4f1').
+- `common_strings`: `Unity::CommonString` begin RVA.
+- `rtti`: `RTTI::ms_runtimeTypes` RVA.
+- `type_tree_ctor`: `TypeTree::TypeTree` RVA.
+- `type_tree`: `TypeTreeCache::GetTypeTree` RVA for `version > 2019.x.x` else `GenerateTypeTree` RVA.
+- `produce`: `Object::Produce` RVA.
 # Example:
 ```
 [engine]
