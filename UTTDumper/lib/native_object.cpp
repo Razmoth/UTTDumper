@@ -26,8 +26,7 @@ namespace UTTD::Unity {
 		Info* m_info;
 	};
 
-	std::shared_ptr<INativeObject> NativeObject::produce(IRTTI& rtti, int32_t instanceID, CreationMode creationMode) const
-	{
+	std::shared_ptr<INativeObject> NativeObject::produce(IRTTI& rtti, int32_t instanceID, CreationMode creationMode) const {
 		if (rtti.isAbstract())
 			return nullptr;
 
@@ -51,8 +50,7 @@ namespace UTTD::Unity {
 		return ptr == nullptr ? nullptr : s_nativeObject(ptr, m_version);
 	}
 
-	static std::shared_ptr<INativeObject> s_nativeObject(void* ptr, const Version& version)
-	{
+	static std::shared_ptr<INativeObject> s_nativeObject(void* ptr, const Version& version) {
 		if (version < s_version<5, 0>) {
 			throw std::runtime_error("version not supported !!"); //TODO: add support?
 		}

@@ -24,28 +24,26 @@ public:
     StreamBuf2Log(Type t) {
         this->setp(buffer, buffer + bufsize - 2);
         switch (t) {
-        case OUT:
-            PRIORITY = ANDROID_LOG_INFO;
-            strcpy(TAG, ANDROID_TAG);
-            break;
-        case ERR:
-            PRIORITY = ANDROID_LOG_ERROR;
-            strcpy(TAG, ANDROID_TAG);
-            break;
-    }
+            case OUT:
+                PRIORITY = ANDROID_LOG_INFO;
+                strcpy(TAG, ANDROID_TAG);
+                break;
+            case ERR:
+                PRIORITY = ANDROID_LOG_ERROR;
+                strcpy(TAG, ANDROID_TAG);
+                break;
+        }
     }
 
 private:
-    int overflow(int c)
-    {
+    int overflow(int c) {
         *this->pptr() = traits_type::to_char_type(c);
         pbump(1);
         sync();
         return 0;
     }
 
-    int sync()
-    {
+    int sync() {
         int n = pptr() - pbase();
         if (!n || (n == 1 && buffer[0] == '\n')) return 0;
         buffer[n] = '\0';
@@ -82,8 +80,7 @@ extern "C" jint JNIEXPORT JNI_OnLoad(JavaVM* vm, void* reserved)
     redirector = new StdStreamRedirector();
 
     JNIEnv* env = nullptr;
-    if (vm->GetEnv((void**)&env, JNI_VERSION_1_6) == JNI_OK)
-    {
+    if (vm->GetEnv((void**)&env, JNI_VERSION_1_6) == JNI_OK) {
         std::cout << "JavaEnv: " << env << std::endl;
     }
 

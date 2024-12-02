@@ -49,8 +49,7 @@ namespace UTTD
 		os.write(range.first, range.second - range.first - 1);
 	}
 
-	void Dumper::dumpInfoJson() const
-	{
+	void Dumper::dumpInfoJson() const {
 		std::cout << "Writing information json..." << std::endl;
 
 		std::filesystem::path outDirectory(m_engine.options().outputDirectory);

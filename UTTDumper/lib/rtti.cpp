@@ -175,8 +175,7 @@ namespace UTTD::Unity {
 		std::vector<std::shared_ptr<IRTTI>> m_derived;
 	};
 
-	bool RTTI::initialize()
-	{
+	bool RTTI::initialize() {
 		if (m_version >= UTTD::Unity::s_version<5, 5>) {
 			Info* info = static_cast<Info*>(m_ptr);
 
@@ -210,8 +209,7 @@ namespace UTTD::Unity {
 		return m_types.size() != 0;
 	}
 
-	static std::shared_ptr<IRTTI> s_RTTI(void* ptr, const Version& version)
-	{
+	static std::shared_ptr<IRTTI> s_RTTI(void* ptr, const Version& version) {
 		if (version >= s_version<2017, 3>) {
 			return std::make_shared<RTTI_Unity2017_3>(ptr);
 		}

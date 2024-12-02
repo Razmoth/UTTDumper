@@ -270,8 +270,7 @@ namespace UTTD::Unity {
 		std::vector<std::shared_ptr<ITypeTreeNode>> m_nodes;
 	};
 
-	std::shared_ptr<ITypeTree> s_typeTree(void* ptr, const CommonString& commonString, const Version& version)
-	{
+	std::shared_ptr<ITypeTree> s_typeTree(void* ptr, const CommonString& commonString, const Version& version) {
 		if (version < s_version<5, 0>) {
 			throw std::runtime_error("version not supported !!"); //TODO: add support?
 		}
@@ -295,8 +294,7 @@ namespace UTTD::Unity {
 		}
 	}
 
-	std::shared_ptr<ITypeTree> TypeTree::typeTree(INativeObject& object, TransferInstruction flags) const
-	{
+	std::shared_ptr<ITypeTree> TypeTree::typeTree(INativeObject& object, TransferInstruction flags) const {
 		std::shared_ptr<ITypeTree> typeTree = s_typeTree(m_ctorPtr, m_commonString, m_version);
 
 		if (m_version >= s_version<2019>) {

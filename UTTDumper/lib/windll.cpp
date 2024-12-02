@@ -6,8 +6,7 @@
 static std::streambuf* CinBuffer, *CoutBuffer, *CerrBuffer;
 static std::fstream ConsoleInput, ConsoleOutput, ConsoleError;
 
-static void RedirectIO()
-{
+static void RedirectIO() {
     CinBuffer = std::cin.rdbuf();
     CoutBuffer = std::cout.rdbuf();
     CerrBuffer = std::cerr.rdbuf();
@@ -21,8 +20,7 @@ static void RedirectIO()
     std::cerr.rdbuf(ConsoleError.rdbuf());
 }
 
-static void ResetIO()
-{
+static void ResetIO() {
     ConsoleInput.close();
     ConsoleOutput.close();
     ConsoleError.close();
@@ -55,11 +53,7 @@ static void StartWin(LPVOID hModule) {
     FreeLibraryAndExitThread(static_cast<HMODULE>(hModule), 0);
 }
 
-BOOL APIENTRY DllMain(HMODULE hModule,
-    DWORD  ul_reason_for_call,
-    LPVOID lpReserved
-    )
-{
+BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved) {
     switch (ul_reason_for_call)
     {
     case DLL_PROCESS_ATTACH:

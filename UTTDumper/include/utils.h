@@ -11,8 +11,7 @@ NLOHMANN_JSON_NAMESPACE_BEGIN
 
 template <typename T>
 struct adl_serializer<std::shared_ptr<T>> {
-	template <typename BasicJsonType> static void to_json(BasicJsonType& json_value, const std::shared_ptr<T>& ptr)
-	{
+	template <typename BasicJsonType> static void to_json(BasicJsonType& json_value, const std::shared_ptr<T>& ptr) {
 		if (ptr.get()) {
 			json_value = *ptr;
 		}
@@ -21,8 +20,7 @@ struct adl_serializer<std::shared_ptr<T>> {
 		}
 	}
 
-	template <typename BasicJsonType> static void from_json(const BasicJsonType& json_value, std::shared_ptr<T>& ptr)
-	{
+	template <typename BasicJsonType> static void from_json(const BasicJsonType& json_value, std::shared_ptr<T>& ptr) {
 		T inner_val = json_value.template get<T>();
 		ptr = std::make_unique<T>(std::move(inner_val));
 	}
