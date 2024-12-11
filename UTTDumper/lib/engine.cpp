@@ -13,10 +13,23 @@
 
 #else
 
+#include <dlfcn.h>
 #include <string>
 
-static uintptr_t get_module_base(const char* moduleName)
-{
+static uintptr_t get_module_base_from_exports(const char* moduleName) {
+	uintptr_t base;
+
+	void* unitySendMessage = dlsym(RTLD_DEFAULT, "UnitySendMessage");
+
+	Dl_info dlInfo;
+	if (dladdr(unitySendMessage, &dlInfo) != 0) {
+		base = reinterpret_cast<uintptr_t>(dlInfo.dli_fbase);
+	}
+
+	return base;
+}
+
+static uintptr_t get_module_base_from_maps(const char* moduleName) {
 	std::ifstream maps("/proc/self/maps");
 
 	char temp;
@@ -34,16 +47,30 @@ static uintptr_t get_module_base(const char* moduleName)
 		ss >> inode;
 
 		ss >> std::ws;
-		if (std::getline(ss, path)
-			&& path.find(moduleName) != path.npos
-			&& perms.find('r') != perms.npos
-			&& perms.find('x') != perms.npos) {
-
+		if (std::getline(ss, path) && path.find(moduleName) != path.npos && inode == 0) {
 			break;
 		}
 	}
 
 	return begin;
+}
+
+static uintptr_t get_module_base(const char* moduleName) {
+	uintptr_t base;
+
+	base = get_module_base_from_exports(moduleName);
+	if (base != 0) {
+		return base;
+	}
+
+	std::cout << "Unable to find module base from exports, attempting to find from maps..." << std::endl;
+
+	base = get_module_base_from_maps(moduleName);
+	if (base != 0) {
+		return base;
+	}
+	
+	throw std::runtime_error(std::format("Unable to find base address for {0}", moduleName));
 }
 
 #define GetModuleBase(moduleName) get_module_base(moduleName)

@@ -15,6 +15,7 @@ namespace UTTD {
 		void dumpStruct(Unity::TransferInstruction transfer) const;
 		void dumpStringData(const Unity::CommonString& commonString) const;
 		void dumpClassesJson() const;
+		void dumpHashesJson() const;
 		void dumpInfoJson() const;
 		void dumpRTTI() const;
 

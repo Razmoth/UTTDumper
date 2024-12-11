@@ -1,6 +1,7 @@
 #include <info.h>
-#include <rtti.h>
 #include <utils.h>
+#include <rtti.h>
+#include <vector>
 #include <utility>
 #include <iostream>
 
@@ -49,6 +50,23 @@ namespace UTTD {
     
     InfoNode::InfoNode(const Unity::ITypeTreeNode& node, InfoNode* parent) : InfoNode(node) {
         this->parent = parent;
+    }
+
+    void InfoNode::hash(std::shared_ptr<MD4> md4) {
+        std::vector<uint8_t> vec;
+
+        vec.assign(type.begin(), type.end());
+        md4->update(vec);
+        vec.assign(name.begin(), name.end());
+        md4->update(vec);
+        md4->update(byteSize);
+        md4->update((int32_t)nodeType);
+        md4->update((int32_t)version);
+        md4->update((int32_t)(meta & 0x4000));
+
+        for (const std::shared_ptr<InfoNode>& i : subNodes) {
+            i->hash(md4);
+        }
     }
     
     std::vector<InfoString> InfoString::s_makeList(const Unity::CommonString& commonString) {

@@ -1,11 +1,14 @@
 #include <dumper.h>
 #include <transfer.h>
 #include <version.h>
+#include <md4.h>
 #include <info.h>
 #include <utils.h>
 #include <utility>
 #include <iostream>
 #include <format>
+#include <vector>
+#include <sstream>
 #include <fstream>
 #include <filesystem>
 #include <nlohmann/json.hpp>
@@ -23,6 +26,7 @@ namespace UTTD
 
 		if (m_engine.options().jsonDump) {
 			dumpClassesJson();
+			dumpHashesJson();
 			dumpInfoJson();
 		}
 
@@ -76,6 +80,36 @@ namespace UTTD
 			const InfoClass& cls = *classes[i];
 
 			json[std::to_string(cls.typeID)] = cls.name;
+		}
+
+		os << std::setw(2) << json << std::endl;
+	}
+
+	void Dumper::dumpHashesJson() const {
+		std::cout << "Writing hashes.json..." << std::endl;
+
+		std::filesystem::path outDirectory(m_engine.options().outputDirectory);
+		std::ofstream os(outDirectory / "hashes.json");
+
+		std::vector<std::shared_ptr<UTTD::InfoClass>> classes = m_info->classes;
+
+		nlohmann::ordered_json json;
+
+		for (size_t i : sorted(classes, [&classes](size_t a, size_t b) { return classes[a]->typeID < classes[b]->typeID; })) {
+			const InfoClass& cls = *classes[i];
+
+			if (!cls.isAbstract && cls.releaseRootNode != nullptr) {
+				std::stringstream ss;
+
+				std::shared_ptr<MD4> md4 = std::make_shared<MD4>();
+				cls.releaseRootNode->hash(md4);
+				std::vector<uint8_t> hash = md4->digest();
+				for (int i = 0; i < hash.size(); i++) {
+					ss << std::format("{:02X}", hash[i]);
+				}
+				
+				json[cls.name] = ss.str();
+			}	
 		}
 
 		os << std::setw(2) << json << std::endl;

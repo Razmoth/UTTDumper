@@ -1,5 +1,6 @@
 #pragma once
 
+#include <md4.h>
 #include <engine.h>
 #include <transfer.h>
 #include <nlohmann/json.hpp>
@@ -28,6 +29,8 @@ namespace UTTD {
 
 		InfoNode(const Unity::ITypeTreeNode& node);
 		InfoNode(const Unity::ITypeTreeNode& node, InfoNode* parent);
+
+		void hash(std::shared_ptr<MD4> md4);
 
 		static std::shared_ptr<InfoNode> s_rootNode(const Unity::ITypeTree& typeTree);
 	};
